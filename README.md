@@ -14,8 +14,8 @@ A timed coding quiz with multiple-choice questions
 ## Usage
 
 Click begin test to start the timer. Every wrong answer reduces the timer by 10 seconds. Save your score to the leaderboard.
+![image](https://user-images.githubusercontent.com/104745834/193440692-cd8bd902-43c0-4128-871d-45c6ae7d6094.png)
 
-    ![image](https://user-images.githubusercontent.com/104745834/193440653-c9a8efeb-9d48-436f-91c5-bc9509d61212.png)
     
 ## License
 

@@ -1,20 +1,30 @@
 const startBtn = document.querySelector("#start-button");
 const quizContainer = document.querySelector("#quiz");
+const highScores = document.querySelector("#high-scores")
+highScores.addEventListener("click", viewScores)
 startBtn.addEventListener("click", question1);
+let scoreBoard = JSON.parse(localStorage.getItem("scoresBoard"))
+
 
 function startTimer() {
   let time = document.getElementById("time-value");
   let timer = time.textContent - 1;
   time.innerHTML = timer;
-};
+}
 
 function wrongAnswer() {
   let time = document.getElementById("time-value");
   time.innerHTML = time.textContent - 10;
-};
+}
 
 function saveScore() {
-  
+  const timeValue = document.querySelector("#time-value").textContent;
+  let initials = document.querySelector("#initials-for-score").value
+  let scores = [`${initials}:${timeValue}`]
+  scoreBoard.push(scores)
+  localStorage.setItem("scoresBoard", JSON.stringify(scoreBoard)); 
+  location.reload()
+  return false
 }
 
 function question1() {
@@ -32,7 +42,7 @@ function question1() {
   document.querySelector("#answer2").addEventListener("click", wrongAnswer);
   document.querySelector("#answer3").addEventListener("click", question2);
   document.querySelector("#answer4").addEventListener("click", wrongAnswer);
-};
+}
 
 function question2() {
   quizContainer.innerHTML = `
@@ -47,7 +57,7 @@ function question2() {
   document.querySelector("#answer2").addEventListener("click", wrongAnswer);
   document.querySelector("#answer3").addEventListener("click", question3);
   document.querySelector("#answer4").addEventListener("click", wrongAnswer);
-};
+}
 
 function question3() {
   quizContainer.innerHTML = `
@@ -62,7 +72,7 @@ function question3() {
   document.querySelector("#answer2").addEventListener("click", wrongAnswer);
   document.querySelector("#answer3").addEventListener("click", wrongAnswer);
   document.querySelector("#answer4").addEventListener("click", question4);
-};
+}
 
 function question4() {
   quizContainer.innerHTML = `
@@ -77,7 +87,7 @@ function question4() {
   document.querySelector("#answer2").addEventListener("click", wrongAnswer);
   document.querySelector("#answer3").addEventListener("click", wrongAnswer);
   document.querySelector("#answer4").addEventListener("click", question5);
-};
+}
 
 function question5() {
   quizContainer.innerHTML = `
@@ -92,7 +102,7 @@ function question5() {
   document.querySelector("#answer2").addEventListener("click", wrongAnswer);
   document.querySelector("#answer3").addEventListener("click", submitScore);
   document.querySelector("#answer4").addEventListener("click", wrongAnswer);
-};
+}
 
 function submitScore() {
   clearInterval(startCountdown);
@@ -106,17 +116,32 @@ function submitScore() {
     <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="Enter Initials">
   </div>
   <div class="form-group mx-sm-3 mb-2">
-    <label for="inputPassword2" class="sr-only">Password</label>
-    <input type="password" class="form-control" id="inputPassword2" placeholder="Initials">
+    <label for="initials" class="sr-only"></label>
+    <input  type=""text class="form-control" id="initials-for-score" placeholder="Initials">
   </div>
   <button type="submit" id="submit-score" class="btn btn-primary mb-2">Submit Score</button>
 </form>
   `;
 
-  document.querySelector("#submit-score").addEventListener("click",saveScore)
-};
+  document.querySelector("#submit-score").addEventListener("click", saveScore);
+}
+
+function viewScores() {
+
+  quizContainer.innerHTML = `
+  <h1 class="d-flex justify-content-center">Recent Scores:</h1>
+  <div class="container d-flex justify-content-center">
+  <h3 class="mt-5"><strong> ${scoreBoard}</strong></h3>
+  </div>`
+
+
+}
 /*<h1 class="d-flex justify-content-center">Coding Quiz Challenge</h1>
  <span class="d-flex justify-content-center lead"><strong>Try to answer the following code-related questions within the time limit.<br> Keep in mind that incorrect answers will penalize your score/time by<br> ten seconds</strong></span>
  <div class="d-flex justify-content-center mt-5">
  <a class="btn btn-primary btn-lg" id="start-button" href="#" role="button">Start Quiz</a>
 </div> */
+
+
+
+
